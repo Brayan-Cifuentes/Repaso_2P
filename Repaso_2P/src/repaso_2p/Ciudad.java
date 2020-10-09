@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author Brayan Cifuentes
  */
-public class Articulo extends javax.swing.JInternalFrame {
+public class Ciudad extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Articulo
      */
-    public Articulo() {
+    public Ciudad() {
         initComponents();
     }
 
@@ -36,7 +36,7 @@ public class Articulo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txt_idarticulo = new javax.swing.JTextField();
+        txt_idciudad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -54,9 +54,9 @@ public class Articulo extends javax.swing.JInternalFrame {
         setVisible(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Artículo:");
+        jLabel1.setText("Ciudad:");
 
-        jLabel2.setText("ID Articulo: ");
+        jLabel2.setText("ID Ciudad:");
 
         jLabel3.setText("Nombre:");
 
@@ -120,7 +120,7 @@ public class Articulo extends javax.swing.JInternalFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(35, 35, 35)
-                            .addComponent(txt_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_idciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,7 +130,7 @@ public class Articulo extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_idciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -159,15 +159,15 @@ public class Articulo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             Connection cn = DriverManager.getConnection(Inicio.Base_de_Datos, Inicio.Usuario, Inicio.Clave);
-            PreparedStatement pst = cn.prepareStatement("insert into Articulo values(?,?)");
+            PreparedStatement pst = cn.prepareStatement("insert into Ciudad values(?,?)");
 
-            pst.setString(1, txt_idarticulo.getText().trim());
+            pst.setString(1, txt_idciudad.getText().trim());
             pst.setString(2, txt_nombre.getText().trim());
             
                       
             pst.executeUpdate();
 
-            txt_idarticulo.setText("");
+            txt_idciudad.setText("");
             txt_nombre.setText("");
             
 
@@ -181,18 +181,18 @@ public class Articulo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try{
             Connection cn = DriverManager.getConnection(Inicio.Base_de_Datos, Inicio.Usuario, Inicio.Clave);
-            PreparedStatement pst = cn.prepareStatement("select * from Articulo where ID_Articulo = ?");
+            PreparedStatement pst = cn.prepareStatement("select * from Ciudad where ID_Ciudad = ?");
             pst.setString(1, txt_buscar.getText().trim());
 
             ResultSet rs = pst.executeQuery();
 
             if(rs.next()){
-                txt_idarticulo.setText(rs.getString("ID_Articulo"));
-                txt_nombre.setText(rs.getString("Nombre_Articulo"));
+                txt_idciudad.setText(rs.getString("ID_Ciudad"));
+                txt_nombre.setText(rs.getString("Nombre"));
                 
 
             } else {
-                JOptionPane.showMessageDialog(null, "Artículo no registrado");
+                JOptionPane.showMessageDialog(null, "Ciudad no registrada");
             }
 
         }catch (Exception e){
@@ -207,9 +207,9 @@ public class Articulo extends javax.swing.JInternalFrame {
             String ID = txt_buscar.getText().trim();
 
             Connection cn = DriverManager.getConnection(Inicio.Base_de_Datos, Inicio.Usuario, Inicio.Clave);
-            PreparedStatement pst = cn.prepareStatement("update Articulo set ID_Articulo = ?, Nombre_Articulo=? where ID_Articulo = " + ID);
+            PreparedStatement pst = cn.prepareStatement("update Ciudad set ID_Ciudad = ?, Nombre=? where ID_Ciudad = " + ID);
 
-            pst.setString(1, txt_idarticulo.getText().trim());
+            pst.setString(1, txt_idciudad.getText().trim());
             pst.setString(2, txt_nombre.getText().trim());
            
             pst.executeUpdate();
@@ -226,16 +226,16 @@ public class Articulo extends javax.swing.JInternalFrame {
         try {
 
             Connection cn = DriverManager.getConnection(Inicio.Base_de_Datos, Inicio.Usuario, Inicio.Clave);
-            PreparedStatement pst = cn.prepareStatement("delete from Articulo where ID_Articulo = ?");
+            PreparedStatement pst = cn.prepareStatement("delete from Ciudad where ID_Ciudad = ?");
 
             pst.setString(1, txt_buscar.getText().trim());
             pst.executeUpdate();
 
-            txt_idarticulo.setText("");
+            txt_idciudad.setText("");
             txt_nombre.setText("");
            
 
-            lbl_estatus.setText("Articulo eliminado.");
+            lbl_estatus.setText("Ciudad eliminada.");
 
         } catch (Exception e) {
         }
@@ -253,7 +253,7 @@ public class Articulo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lbl_estatus;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_idarticulo;
+    private javax.swing.JTextField txt_idciudad;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }
